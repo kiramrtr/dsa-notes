@@ -1,12 +1,29 @@
-on: [push]
+name: Documentation
+on:
+  push:
+    branches: [main]
 
 jobs:
   build:
-    name: Sphinx Pages
     runs-on: ubuntu-latest
     steps:
-      - uses: seanzhengw/sphinx-pages@master
-        id: sphinx-pages
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - run: pipx run nox -s
+      - uses: actions/upload-pages-artifact@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          create_readme: true
+          path: ./build/
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v1
