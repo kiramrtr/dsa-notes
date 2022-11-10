@@ -1,0 +1,1 @@
+Required when _static folder is empty to keep this folder tracked in Git
