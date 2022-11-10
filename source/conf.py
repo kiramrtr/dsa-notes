@@ -12,6 +12,8 @@ author = 'Kiran Marturu'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
+
+# Extensions
 extensions = [
     'myst_parser',
     'sphinx_inline_tabs',
